@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kumbh+Sans:wght@600;700;800&family=Roboto:wght@700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#nav_txt, #info_txt{
+    font-family: 'Kumbh Sans', sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+    color: rgb(55, 55, 55);
+}
+
+#info_company{
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+#info_desc{
+    font-family: 'Kumbh Sans', sans-serif;
+    color: rgba(128, 128, 128, 0.77);
+    font-size: 13px;
+    width: 100%;
+}
+
+#price_txt{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: rgba(22, 21, 21, 0.882);
+}
+
+#sale_txt{
+    font-family: 'Roboto', sans-serif;
+    color: rgba(255, 68, 0, 0.776);
+    font-size: 14px;
+}
+
+#original_txt{
+    font-family: 'Roboto', sans-serif;
+    color: rgba(128, 128, 128, 0.774);
+    text-decoration: line-through;
+}
+
+#purchase{
+    font-family: 'Roboto', sans-serif;
+}
+
+#purchase_button{
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+#x{
+    font-family: 'Roboto', sans-serif;
+    color: rgba(101, 101, 101, 0.948);
+    font-size: 27px;
+}
+
+#nav_ul{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: rgb(52, 52, 52);
+}
+
+#err{
+    font-family: 'Roboto', sans-serif;
+}
+
+#err_x{
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+#bought_box{
+    font-family: 'Roboto', sans-serif;
+    h4{
+        color: rgb(52, 52, 52);
+        font-size: 14px;
+    }
+    h5{
+        margin-top: 10px;
+        color: rgba(52, 52, 52, 0.857);
+    }
+}
+
+#checkout_btn{
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+}
+
+#new_product{
+    color: orangered;
+    font-size: 12px;
+    font-weight: 900;
+    font-family: 'Kumbh Sans', sans-serif;
+    top: -10px;
+    right: -5px;
+}
