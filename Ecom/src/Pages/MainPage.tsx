@@ -4,6 +4,7 @@ import Product  from '../Data/ProductData'
 import { useAppDispatch, useAppSelector } from '../store/store'
 import { calculateNewProduct, calculatePrice, deleteNewProduct, deleteProduct, pushProduct, setcountRedux } from '../store/pages/page.slice'
 import useWindowResize from '../hooks/UseWindowResize'
+import {motion} from 'framer-motion'
 
 const MainPage = () => {
     const[imagecount, setimagecount] = useState(0)
@@ -42,15 +43,15 @@ const MainPage = () => {
         <div className='w-full h-screen bg-white'>
             {/* Moduls */}
             {navslide && (
-                <div className="absolute w-[70%] h-full bg-white z-50 px-6 pt-20">
-                        <ul id='nav_ul' className='flex flex-col gap-6'>
-                            <li>Collections</li>
-                            <li>Man</li>
-                            <li>Woman</li>
-                            <li>About</li>
-                            <li>Contact</li>
+                <motion.div initial={{width : 0}} animate={{width : "70%"}} transition={{duration : 1, delay : 0.1, type : "spring"}} className="absolute w-[70%] h-full bg-white z-50 px-6 pt-20">
+                        <ul id='nav_ul' className='flex flex-col gap-6 lg:gap-9 m-8'>
+                            <motion.li initial={{opacity : 0, x : -10}} animate={{opacity : 1, x : 0}} transition={{delay : 0.6, type : "spring"}}>Collections</motion.li>
+                            <motion.li initial={{opacity : 0, x : -10}} animate={{opacity : 1, x : 0}} transition={{delay : 0.8, type : "spring"}}>Man</motion.li>
+                            <motion.li initial={{opacity : 0, x : -10}} animate={{opacity : 1, x : 0}} transition={{delay : 1, type : "spring"}}>Woman</motion.li>
+                            <motion.li initial={{opacity : 0, x : -10}} animate={{opacity : 1, x : 0}} transition={{delay : 1.2, type : "spring"}}>About</motion.li>
+                            <motion.li initial={{opacity : 0, x : -10}} animate={{opacity : 1, x : 0}} transition={{delay : 1.4, type : "spring"}}>Contact</motion.li>
                         </ul>
-                </div>
+                </motion.div>
             )}
             {
                 counterror && (
@@ -62,20 +63,23 @@ const MainPage = () => {
             }
             {
                 bought && (
-                    <div className='absolute w-[95%] xl:w-[30%] lg:w-[50%] h-56 items-center justify-center flex-col pt-2  bg-white text-center rounded-lg border-2 border-green-700 z-40 mt-12 left-[50%] translate-x-[-50%]'>
+                    <motion.div initial={{ opacity : 0, }} animate={{opacity : 1}} transition={{duration : .6, delay : .1, type : "spring"}} className='absolute w-[95%] xl:w-[30%] lg:w-[50%] h-56 items-center justify-center flex-col pt-2  bg-white text-center rounded-lg border-2 border-green-700 z-40 mt-12 left-[50%] translate-x-[-50%]'>
                        <h2 id='err_x' onClick={() => {
                         setbought(false)
                         setcount(0)
                         }} className='cursor-pointer absolute top-[-5px] right-[-5px] h-5 w-5 rounded-full bg-white flex items-center justify-center'>X</h2>
                        <div className='flex p-5 items-center flex-col'>
-                        <div className='flex items-center'>
-                        <img className='h-20 w- 20 rounded-md' src={Product.images[0]} alt="" />
+                        <div className='flex items-center justify-between lg:w-full lg:px-20'>
+                        <motion.img initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : 1, delay : .6}} className='h-20 w- 20 rounded-md' src={Product.images[0]} alt="" />
                         <div id='bought_box' className='flex flex-col pl-3 text-start'>
-                            <h4>{count} x {Product.heading_txt}</h4>
-                            <h5>{count * 125}$</h5>
+                            <motion.h4 initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .4, delay : .5}}>{count} x {Product.heading_txt}</motion.h4>
+                            <motion.h5 initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .4, delay : .6}}>{count * 125}$</motion.h5>
                         </div>
                         </div>
-                        <button 
+                        <motion.button 
+                        initial={{scale : 0}}
+                        animate={{scale : 1}}
+                        transition={{duration : .7, delay : .1}}
                         onClick={() => {
                             dispath(setcountRedux(count))
                             setcounterror(false)
@@ -85,17 +89,17 @@ const MainPage = () => {
                             setbought(false)
                             dispath(calculateNewProduct(count))
                         }}
-                        id='checkout_btn' className='mt-10 w-[90%] h-12 bg-orange-600 text-white rounded-xl'>Checkout</button>
+                        id='checkout_btn' className='mt-10 w-[90%] h-12 bg-orange-600 text-white rounded-xl'>Checkout</motion.button>
                        </div>
                        
-                    </div>
+                    </motion.div>
                 )
             }
             {
                 cart && (
-                    <div className="w-[95%] lg:left-[70vw] sm:w-96  h-56 bg-white border-2 border-orange-700 absolute left-[50%] rounded-xl translate-x-[-50%] top-14 z-40">
-                        <div className="w-full h-[30%] p-4 border-b-2">
-                            <h2 id='cart_heading'>Cart</h2>
+                    <motion.div initial={{opacity : 0,}} animate={{opacity : 1, }} transition={{duration : .5, delay :.1}} className="w-[95%] lg:left-[70vw] sm:w-96  h-56 bg-white border-2 border-orange-700 absolute left-[50%] rounded-xl translate-x-[-50%] top-14 z-40">
+                        <div className="w-full h-[20%] md:h-[30%] p-4 border-b-2">
+                            <motion.h2 initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .5, delay : .4}} id='cart_heading'>Cart</motion.h2>
                         </div>
                         <div className="w-full h-[70%]  flex flex-col">
                         <h2 id='err_x' onClick={() => {
@@ -105,85 +109,149 @@ const MainPage = () => {
                         {currentProduct.length > 0 ? (
                             <div className='flex p-5 items-center flex-col'>
                             <div className='flex items-center'>
-                            <img className='h-14 w- rounded-md' src={Product.images[0]} alt="" />
-                            <div id='bought_box' className='flex flex-col pl-3 text-start'>
+                            <motion.img initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .4, delay : .6}} className='h-14 w- rounded-md' src={Product.images[0]} alt="" />
+                            <motion.div initial={{x : 0, y : -10, opacity : 0}} animate={{x : 0, y : 0, opacity : 1}} transition={{duration : .5, delay : .2}} id='bought_box' className='flex flex-col pl-3 text-start'>
                                 <h4>{productList} x {Product.heading_txt}</h4>
                                 <h5>{price}$</h5>
-                            </div>
-                            <i 
+                            </motion.div>
+                            <motion.i 
+                            initial={{opacity : 0}}
+                            animate={{opacity : 1}}
+                            transition={{duration : .4, delay : .7}}
                             onClick={() => {
                                 dispath(deleteProduct(Product))
                             }}
-                            className="text-gray-500 ml-5 cursor-pointer fa-solid fa-trash"></i>
+                            className="text-gray-500 ml-5 cursor-pointer fa-solid fa-trash"></motion.i>
                             </div>
-                            <button 
+                            <motion.button 
+                            initial={{scale : 0}}
+                            animate = {{scale :1}}
+                            transition={{duration : .8}}
                             onClick={() => {
+                                setcart(false)
+                                dispath(deleteProduct(Product))
+                                dispath(deleteNewProduct())
+
                             }}
-                            id='checkout_btn' className='mt-5 w-[80%] h-12 bg-orange-600 text-white rounded-xl'>Pay</button>
+                            id='checkout_btn' className='mt-5 w-[80%] h-12 bg-orange-600 text-white rounded-xl'>Pay</motion.button>
                            </div>
-                        ) : <h2 id='empty' className='absolute top-[60%] left-[50%] translate-x-[-50%] translate-y-[-50%]'>your cart is empty</h2>}
+                        ) : <motion.h2 initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .4, delay : .6}} id='empty' className='absolute top-[60%] left-[50%] translate-x-[-50%] translate-y-[-50%]'>your cart is empty</motion.h2>}
                         </div>
-                    </div>
+                    </motion.div>
                 )
             }
 
 
 
-            
+
             {/* NavBar */}
             {(navslide || bought || counterror) && (
-                <div className='absolute w-full h-full bg-black z-20 opacity-80 '>
-                </div>
+                <motion.div 
+                initial={{opacity : 0}}
+                animate={{opacity : .8}}
+                transition={{duration : .3}}
+                className='absolute w-full h-full bg-black z-20 opacity-80 '>
+                </motion.div>
                 )}
                             
-            <nav className='h-[8%] md:px-24 xl:px-64 w-full flex items-center justify-between px-6'>
-                <div className='flex items-center md:gap-16 gap-6'>
-                {navslide ? <i onClick={() => setnavslide(false)} id='x' className="xl:hidden cursor-pointer z-50 fa-solid fa-x"></i> : <i onClick={() => setnavslide(true)} className="xl:hidden fa-solid fa-bars text-gray-600 text-xl cursor-pointer"></i>}
-                <h2 className='text-xl md:text-2xl cursor-pointer' id='nav_txt'>Sneakers</h2>
-                <ul id='nav_ul_res' className='hidden xl:flex gap-14 pl-9'>
-                    <li className='cursor-pointer'>Collections</li>
-                    <li className='cursor-pointer'>Men</li>
-                    <li className='cursor-pointer'>Woman</li>
-                    <li className='cursor-pointer'>About</li>
-                    <li className='cursor-pointer'>Contact</li>
-                </ul>
-                </div>
-                <div className='flex items-center md:gap-16 gap-6'>
-                <i onClick={() => {
-                    dispath(deleteNewProduct())
-                    setcart(true)
-                }} className="md:text-2xl fa-solid fa-cart-shopping cursor-pointer relative text-gray-600 text-xl">
-                    <p id='new_product' className='absolute top-0 right-0'>{newProdcut == 0 ? "" : newProdcut}</p>
-                </i>
-                <img src={pfp} className='lg:w-10 lg:h-10 w-6 h-6 rounded-full' alt="" />
-                </div>
-            </nav>
+                            <nav className='h-[8%] md:px-24 xl:px-64 w-full flex items-center justify-between px-6'>
+        <div className='flex items-center md:gap-16 gap-6'>
+          {navslide ? (
+            <motion.i
+              key={1}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              onClick={() => setnavslide(false)}
+              id='x'
+              className='xl:hidden cursor-pointer z-50 fa-solid fa-x'
+            ></motion.i>
+          ) : (
+            <motion.i
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              key={0}
+              onClick={() => setnavslide(true)}
+              className='xl:hidden fa-solid fa-bars text-gray-600 text-xl cursor-pointer'
+            ></motion.i>
+          )}
+          <h2 className='text-xl md:text-2xl cursor-pointer' id='nav_txt'>
+            Sneakers
+          </h2>
+          <ul id='nav_ul_res' className='hidden xl:flex gap-14 pl-9'>
+            <li className='cursor-pointer'>Collections</li>
+            <li className='cursor-pointer'>Men</li>
+            <li className='cursor-pointer'>Woman</li>
+            <li className='cursor-pointer'>About</li>
+            <li className='cursor-pointer'>Contact</li>
+          </ul>
+        </div>
+        <div className='flex items-center md:gap-16 gap-6'>
+          <i
+            onClick={() => {
+              dispath(deleteNewProduct());
+              setcart(true);
+            }}
+            className='md:text-2xl fa-solid fa-cart-shopping cursor-pointer relative text-gray-600 text-xl'
+          >
+            <p id='new_product' className='absolute h-5 w-5 mt-1 flex items-center justify-center bg-orange-700 text-white rounded-full top-0 right-0'>
+              {newProdcut == 0 ? '' : newProdcut}
+            </p>
+          </i>
+          <img
+            src={pfp}
+            className='lg:w-10 lg:h-10 w-6 h-6 rounded-full'
+            alt=''
+          />
+        </div>
+      </nav>
             <div className="w-full xl:px-40 xl:gap-32 lg:px-10 lg:gap-7 h-[92%] sm:justify-center lg:flex-row items-center flex flex-col">
                 {/* carousel */}
-                {Number(width) > 980 ? 
-                <div className="xl:w-2/6 xl:h-[65vh] w-2/3 h-[70vh] relative">
-                <img className='w-full h-[80%] rounded-lg' src={Product.images[image]} alt="" />
-                <div className='w-full flex justify-between absolute bottom-0'>
-                    {Product.images.map((img, i) => (
-                        <img
-                            key={i}
-                            onClick={() => setimage(i)}
-                            className={`cursor-pointer w-24 h-24 rounded-md ${i === image ? "opacity-60" : ""}`}
-                            src={img}
-                            alt=""
+                {Number(width) > 980 ? (
+                        <div className="xl:w-2/6 xl:h-[65vh] w-2/3 h-[70vh] relative">
+                        <motion.img
+                            key={image}
+                            initial={{ opacity: 0, x: -400 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className='w-full h-[80%] rounded-lg'
+                            src={Product.images[image]}
+                            alt=''
                         />
-                    ))}
-                </div>
-            </div>
-                :
+                        <div className='w-full flex justify-between absolute bottom-0'>
+                            {Product.images.map((img, i) => (
+                            <motion.img
+                                key={i} 
+                                initial={{ scale: 0.9 }}
+                                animate={{ scale: 1 }}
+                                onClick={() => setimage(i)}
+                                className={`cursor-pointer w-24 h-24 rounded-md ${
+                                i === image ? 'opacity-60' : ''
+                                }`}
+                                src={img}
+                                alt=''
+                            />
+                            ))}
+                        </div>
+                        </div>
+                    ) :
                 (
-                    <div className="h-[40%] sm:w-[460px] md:w-2/3 lg:w-[70%] w-full bg-red-900 relative">
-                    <div className="w-full h-24 absolute items-center justify-between px-2 flex top-[50%] translate-y-[-50%]">
-                    <i onClick={() => imageSlider('dicrement')} className=" w-9 h-9 flex items-center justify-center rounded-full cursor-pointer bg-white fa-solid fa-angle-left"></i>
-                    <i onClick={() => imageSlider('increment')} className=" w-9 h-9 flex items-center justify-center rounded-full cursor-pointer bg-white fa-solid fa-angle-right"></i>
-                    </div>
-                    <img className='w-full h-full' src={Product.images[imagecount]} alt="" />
-                </div>
+                   <div className="h-[40%] sm:w-[460px] md:w-2/3 lg:w-[70%] w-full overflow-hidden relative">
+  <div className="w-full h-24 absolute items-center justify-between px-2 flex top-[50%] translate-y-[-50%] overflow-hidden">
+    <i onClick={() => imageSlider('dicrement')} className="w-9 z-40 h-9 flex items-center justify-center rounded-full cursor-pointer bg-white fa-solid fa-angle-left"></i>
+    <i onClick={() => imageSlider('increment')} className="w-9 h-9 flex items-center justify-center rounded-full cursor-pointer bg-white fa-solid fa-angle-right"></i>
+  </div>
+  <motion.img
+    key={imagecount}
+    initial={{ x: -100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    transition={{ duration: 1, type: "spring" }}
+    className='w-full h-full'
+    src={Product.images[imagecount]}
+    alt=""
+  />
+</div>
                 )    
             }
                 {/* Information */}
