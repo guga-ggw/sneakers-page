@@ -42,6 +42,9 @@ const ProductsSlice = createSlice({
             state.count = state.count + action.payload;
         },
         deleteProduct: (state, action) => {
+            state.count = 0,
+            state.price = 0,
+            
             state.products = state.products.filter((item) => item.id !== action.payload.id);
         },
         calculatePrice : (state) => {
