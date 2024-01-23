@@ -18,7 +18,7 @@ const MainPage = () => {
     const price = useAppSelector((state) => state.ProductReducer.price)
     const productList = useAppSelector((state) => state.ProductReducer.count)
     const currentProduct = useAppSelector((state) => state.ProductReducer.products)
-    const {height, width } = useWindowResize()
+    const {width } = useWindowResize()
     const[image, setimage] = useState(0)
 
     const imageSlider = (type : string) => {
